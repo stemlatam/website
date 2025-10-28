@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEMLATAM - Innovación y Soluciones Tecnológicas</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo base con la fuente Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Clase para el efecto de gradiente en el texto */
+        .text-gradient {
+            background-image: linear-gradient(to right, #2dd4bf, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        /* Estilos para el loader de Gemini */
+        .loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #FFF;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos para el switcher de idioma activo/inactivo */
+        .lang-switcher.active {
+            color: #2dd4bf; /* Teal-400 */
+            font-weight: 700;
+        }
+        .lang-switcher:not(.active) {
+            color: #94a3b8; /* Slate-400 */
+            font-weight: 500;
+            cursor: pointer;
+        }
+         .lang-switcher:not(.active):hover {
+            color: #cbd5e1; /* Slate-300 */
+         }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-200">
+
+    <header class="sticky top-0 z-50 w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#inicio" class="text-2xl font-extrabold text-gradient">
+                    STEMLATAM
+                </a>
+                
+                <div class="hidden md:flex md:items-center md:space-x-6">
+                    <a href="#nosotros" data-key="nav_nosotros" class="text-gray-300 hover:text-teal-400 transition-colors">Nosotros</a>
+                    <a href="#servicios" data-key="nav_servicios" class="text-gray-300 hover:text-teal-400 transition-colors">Servicios</a>
+                    <a href="#proyectos" data-key="nav_proyectos" class="text-gray-300 hover:text-teal-400 transition-colors">Proyectos</a>
+                    
+                    <div class="flex space-x-2 border-l border-slate-700 pl-6">
+                        <button class="lang-switcher" data-lang="es">ES</button>
+                        <span>/</span>
+                        <button class="lang-switcher" data-lang="en">EN</button>
+                    </div>
+                    
+                    <a href="#contacto" data-key="nav_contacto" class="ml-2 px-4 py-2 bg-teal-500 text-slate-900 font-semibold rounded-lg shadow-md hover:bg-teal-400 transition-colors">
+                        Contacto
+                    </a>
+                </div>
+                
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-300 hover:text-teal-400 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3 border-t border-slate-700">
+                <a href="#nosotros" data-key="nav_nosotros" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-slate-800 hover:text-teal-400">Nosotros</a>
+                <a href="#servicios" data-key="nav_servicios" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-slate-800 hover:text-teal-400">Servicios</a>
+                <a href="#proyectos" data-key="nav_proyectos" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-slate-800 hover:text-teal-4TEAL">Proyectos</a>
+                <a href="#contacto" data-key="nav_contacto" class="mobile-link block w-full text-left px-3 py-2 mt-2 rounded-md text-base font-medium bg-teal-500 text-slate-900 hover:bg-teal-400">
+                    Contacto
+                </a>
+                <div class="flex justify-center space-x-2 pt-4 border-t border-slate-800 mt-4">
+                    <button class="lang-switcher" data-lang="es">ES</button>
+                    <span class="text-slate-400">/</span>
+                    <button class="lang-switcher" data-lang="en">EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="inicio" class="relative pt-24 pb-32 md:pt-32 md:pb-40">
+            <div class="absolute inset-0 opacity-10 -z-10">
+                 <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl opacity-50"></div>
+                 <div class="absolute top-0 right-0 w-96 h-96 bg-teal-600 rounded-full filter blur-3xl opacity-50"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight">
+                    <span data-key="hero_title1" class="block text-gray-100">Impulsamos la Innovación</span>
+                    <span data-key="hero_title2" class="block text-gradient mt-2">con Soluciones Tecnológicas</span>
+                </h1>
+                <p data-key="hero_subtitle" class="mt-6 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+                    Expertos en IA Aplicada, Web3, IoT y desarrollo de MVP para startups en Minería, Agricultura y Retail.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#servicios" data-key="hero_btn_services" class="px-8 py-3 bg-teal-500 text-slate-900 font-bold rounded-lg shadow-lg hover:bg-teal-400 transition-colors text-lg">
+                        Nuestros Servicios
+                    </a>
+                    <a href="#proyectos" data-key="hero_btn_projects" class="px-8 py-3 bg-slate-800 text-gray-200 font-bold rounded-lg shadow-lg hover:bg-slate-700 transition-colors text-lg border border-slate-700">
+                        Ver Proyectos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="py-20 md:py-28 bg-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span data-key="about_badge" class="inline-block px-3 py-1 bg-teal-500/10 text-teal-400 font-semibold rounded-full text-sm mb-4">
+                            +10 AÑOS DE EXPERIENCIA
+                        </span>
+                        <h2 data-key="about_title" class="text-3xl md:text-4xl font-extrabold text-white mb-6">
+                            Tu Socio Estratégico en Transformación Digital
+                        </h2>
+                        <p data-key="about_p1" class="text-lg text-gray-300 mb-4">
+                            En STEMLATAM (Stem Group SpA), llevamos una década innovando y creando nuevas soluciones a medida que aportan valor, agilidad e impulsan la transformación digital de nuestros clientes.
+                        </p>
+                        <p data-key="about_p2" class="text-lg text-gray-300">
+                            Somos expertos en el desarrollo de Productos Mínimos Viables (MVP) para nuevas Startups, ayudándoles a validar sus ideas y escalar rápidamente en mercados competitivos.
+                        </p>
+                    </div>
+                    <div class="bg-slate-700 rounded-xl shadow-2xl p-8">
+                        <h3 data-key="industry_title" class="text-2xl font-bold text-white mb-4">Industrias Foco</h3>
+                        <p data-key="industry_subtitle" class="text-gray-300 mb-6">Concentramos nuestra experiencia en sectores clave para generar un impacto real:</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 data-key="industry_mining_title" class="text-lg font-semibold text-white">Minería</h4>
+                                    <p data-key="industry_mining_desc" class="text-gray-400">Soluciones para gestión de personal, seguridad y optimización de procesos.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-500/20 text-green-400 rounded-lg flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.742 4.742a1 1 0 010 1.414l-9 9A1 1 0 017.328 15H4a1 1 0 01-1-1V7.672a1 1 0 01.293-.707l9-9a1 1 0 011.414 0zM9 13.172l6-6-6-6V13.172z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 data-key="industry_agri_title" class="text-lg font-semibold text-white">Agricultura</h4>
+                                    <p data-key="industry_agri_desc" class="text-gray-400">Plataformas de inversión (AgriTech) y optimización de cultivos con Web3.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-purple-500/20 text-purple-400 rounded-lg flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.993.883L4 8v10a1 1 0 00.883.993L5 19h10a1 1 0 00.993-.883L16 18V8a1 1 0 00-.883-.993L15 7h-1V6a4 4 0 00-4-4zm0 2a2 2 0 012 2v1H8V6a2 2 0 012-2z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 data-key="industry_retail_title" class="text-lg font-semibold text-white">Retail</h4>
+                                    <p data-key="industry_retail_desc" class="text-gray-400">Gestión de tiendas con IoT y etiquetas de precio electrónicas (ESL).</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="py-20 md:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 data-key="services_title" class="text-3xl md:text-4xl font-extrabold text-white">Nuestras Soluciones Tecnológicas</h2>
+                    <p data-key="services_subtitle" class="mt-4 text-lg text-gray-300">
+                        Desde el desarrollo de aplicaciones a medida hasta la implementación de tecnologías emergentes.
+                    </p>
+                </div>
+                
+                <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg transform hover:scale-105 hover:shadow-teal-500/20 transition-all duration-300">
+                        <div class="w-12 h-12 bg-teal-500/20 text-teal-400 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 data-key="service_ia_title" class="text-xl font-bold text-white mb-2">IA Aplicada</h3>
+                        <p data-key="service_ia_desc" class="text-gray-400">Desarrollo e implementación de modelos de Inteligencia Artificial para optimizar decisiones y automatizar procesos.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg transform hover:scale-105 hover:shadow-teal-500/20 transition-all duration-300">
+                        <div class="w-12 h-12 bg-teal-500/20 text-teal-400 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m-8-14l8 4m-8-4v10l8 4m0-10V3"></path></svg>
+                        </div>
+                        <h3 data-key="service_web3_title" class="text-xl font-bold text-white mb-2">Web3 & Smart Contracts</h3>
+                        <p data-key="service_web3_desc" class="text-gray-400">Construimos aplicaciones descentralizadas (dApps) y contratos inteligentes para garantizar transparencia y seguridad.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg transform hover:scale-105 hover:shadow-teal-500/20 transition-all duration-300">
+                        <div class="w-12 h-12 bg-teal-500/20 text-teal-400 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.556a5.5 5.5 0 017.778 0M9.556 15.111a3.5 3.5 0 014.888 0M10.999 13.666a1.5 1.5 0 012.122 0"></path></svg>
+                        </div>
+                        <h3 data-key="service_iot_title" class="text-xl font-bold text-white mb-2">IoT</h3>
+                        <p data-key="service_iot_desc" class="text-gray-400">Conectamos el mundo físico al digital con soluciones de IoT para monitoreo y gestión en tiempo real.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg transform hover:scale-105 hover:shadow-teal-500/20 transition-all duration-300">
+                        <div class="w-12 h-12 bg-teal-500/20 text-teal-400 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 data-key="service_mvp_title" class="text-xl font-bold text-white mb-2">Desarrollo de Apps y MVP</h3>
+                        <p data-key="service_mvp_desc" class="text-gray-400">Especialistas en desarrollo ágil de aplicaciones web y móviles. Convertimos tu idea en un producto funcional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="py-20 md:py-28 bg-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 data-key="projects_title" class="text-3xl md:text-4xl font-extrabold text-white">Proyectos Destacados</h2>
+                    <p data-key="projects_subtitle" class="mt-4 text-lg text-gray-300">
+                        Casos de éxito que demuestran nuestra capacidad de aportar valor.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid md:grid-cols-3 gap-8">
+                    <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="h-48 w-full bg-slate-700 flex items-center justify-center text-gray-400 font-bold">
+                            [Ilustración/UI de Miner.IA]
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-4">
+                                <span data-key="project_mineria_tag" class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 font-semibold rounded-full text-xs mr-2">Minería</span>
+                                <span data-key="project_ia_tag" class="inline-block px-3 py-1 bg-teal-500/10 text-teal-400 font-semibold rounded-full text-xs">IA Aplicada</span>
+                            </div>
+                            <h3 data-key="project_mineria_title" class="text-xl font-bold text-white mb-2">Miner.IA</h3>
+                            <p data-key="project_mineria_desc" class="text-gray-400 flex-grow">
+                                Plataforma de reclutamiento, gestión y acreditación de personal de minería para dar cumplimiento a los requerimientos previos del trabajo en faenas mineras.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="h-48 w-full bg-slate-700 flex items-center justify-center text-gray-400 font-bold">
+                            [Ilustración/UI de CapitalValley]
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-4">
+                                <span data-key="project_agri_tag" class="inline-block px-3 py-1 bg-green-500/10 text-green-400 font-semibold rounded-full text-xs mr-2">Agricultura</span>
+                                <span data-key="project_web3_tag" class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 font-semibold rounded-full text-xs">Web3</span>
+                            </div>
+                            <h3 data-key="project_agri_title" class="text-xl font-bold text-white mb-2">CapitalValley</h3>
+                            <p data-key="project_agri_desc" class="text-gray-400 flex-grow">
+                                Plataforma de inversiones en agricultura basadas en Smart Contracts que revoluciona la forma de invertir en la producción de alimentos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="h-48 w-full bg-slate-700 flex items-center justify-center text-gray-400 font-bold">
+                            [Ilustración/UI de SmartRetail]
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-4">
+                                <span data-key="project_retail_tag" class="inline-block px-3 py-1 bg-pink-500/10 text-pink-400 font-semibold rounded-full text-xs mr-2">Retail</span>
+                                <span data-key="project_iot_tag" class="inline-block px-3 py-1 bg-yellow-500/10 text-yellow-400 font-semibold rounded-full text-xs">IoT</span>
+                            </div>
+                            <h3 data-key="project_retail_title" class="text-xl font-bold text-white mb-2">SmartRetail</h3>
+                            <p data-key="project_retail_desc" class="text-gray-400 flex-grow">
+                                Servicios de IoT para la gestión de tiendas con el uso de ESL (Electronic Shelf Label), optimizando precios y stock en tiempo real.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gemini-demo" class="py-20 md:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white">
+                        <span data-key="gemini_title" class="block">Descubre tu Solución Ideal con IA ✨</span>
+                    </h2>
+                    <p data-key="gemini_subtitle" class="mt-4 text-lg text-gray-300">
+                        Describe tu desafío empresarial y deja que nuestra IA te recomiende la mejor solución tecnológica de STEMLATAM.
+                    </p>
+                </div>
+                
+                <div class="mt-12 max-w-3xl mx-auto">
+                    <div class="bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8">
+                        <textarea id="challenge-input"
+                                  rows="4"
+                                  class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                  data-key-placeholder="gemini_placeholder"></textarea>
+                        
+                        <button id="gemini-btn"
+                                class="mt-4 w-full sm:w-auto flex items-center justify-center px-8 py-3 bg-teal-500 text-slate-900 font-bold rounded-lg shadow-lg hover:bg-teal-400 transition-colors text-lg">
+                            <span data-key="gemini_btn">Analizar Desafío</span>
+                            <span id="gemini-loader" class="loader ml-3 hidden"></span>
+                        </button>
+                    </div>
+
+                    <div id="gemini-result-wrapper" class="hidden mt-8">
+                        <div class="bg-slate-800 rounded-xl shadow-lg p-6">
+                            <h4 class="text-lg font-semibold text-white mb-2" data-key="gemini_result_title">Recomendación de Nuestra IA:</h4>
+                            <p id="gemini-result-text" class="text-gray-300 whitespace-pre-wrap"></p>
+                        </div>
+                    </div>
+
+                    <div id="gemini-error" class="hidden mt-6 text-center text-red-400"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-20 md:py-28 bg-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 data-key="contact_title" class="text-3xl md:text-4xl font-extrabold text-white">Hablemos de tu Próximo Desafío</h2>
+                    <p data-key="contact_subtitle" class="mt-4 text-lg text-gray-300">
+                        ¿Tienes una idea para una startup o un proyecto de transformación digital? Nos encantaría escucharlo.
+                    </p>
+                </div>
+                
+                <div class="mt-16 max-w-2xl mx-auto">
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" data-key="form_name" class="block text-sm font-medium text-gray-300">Nombre</label>
+                            <input type="text" name="name" id="name" required
+                                   class="mt-1 block w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        <div>
+                            <label for="email" data-key="form_email" class="block text-sm font-medium text-gray-300">Email</label>
+                            <input type="email" name="email" id="email" required
+                                   class="mt-1 block w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        <div>
+                            <label for="message" data-key="form_message" class="block text-sm font-medium text-gray-300">Mensaje</label>
+                            <textarea id="message" name="message" rows="4" required
+                                      class="mt-1 block w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                      data-key-placeholder="form_message_placeholder"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" data-key="form_submit"
+                                    class="w-full sm:w-auto px-10 py-3 bg-teal-500 text-slate-900 font-bold rounded-lg shadow-lg hover:bg-teal-400 transition-colors text-lg">
+                                Enviar Mensaje
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 border-t border-slate-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left">
+                    <p class="text-2xl font-extrabold text-gradient">STEMLATAM</p>
+                    <p class="text-sm text-gray-400 mt-1">por Stem Group SpA</p>
+                </div>
+                <div class="flex space-x-6 mt-6 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-teal-400">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"></path></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-teal-400">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.97 4.97 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.82 4.82 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.9 4.9 0 01-2.228-.616v.06a4.92 4.92 0 003.946 4.827 4.99 4.99 0 01-2.212.085 4.93 4.93 0 004.604 3.417 9.87 9.87 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.99 13.99 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.94 9.94 0 002.46-2.548z"></g></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-sm text-gray-500" data-key="footer_rights">
+                &copy; 2025 Stem Group SpA (STEMLATAM). Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Objeto de Traducciones
+        const translations = {
+            es: {
+                // Título de la página
+                page_title: "STEMLATAM - Innovación y Soluciones Tecnológicas",
+                // Navegación
+                nav_nosotros: "Nosotros",
+                nav_servicios: "Servicios",
+                nav_proyectos: "Proyectos",
+                nav_contacto: "Contacto",
+                // Hero
+                hero_title1: "Impulsamos la Innovación",
+                hero_title2: "con Soluciones Tecnológicas",
+                hero_subtitle: "Expertos en IA Aplicada, Web3, IoT y desarrollo de MVP para startups en Minería, Agricultura y Retail.",
+                hero_btn_services: "Nuestros Servicios",
+                hero_btn_projects: "Ver Proyectos",
+                // Nosotros
+                about_badge: "+10 AÑOS DE EXPERIENCIA",
+                about_title: "Tu Socio Estratégico en Transformación Digital",
+                about_p1: "En STEMLATAM (Stem Group SpA), llevamos una década innovando y creando nuevas soluciones a medida que aportan valor, agilidad e impulsan la transformación digital de nuestros clientes.",
+                about_p2: "Somos expertos en el desarrollo de Productos Mínimos Viables (MVP) para nuevas Startups, ayudándoles a validar sus ideas y escalar rápidamente en mercados competitivos.",
+                industry_title: "Industrias Foco",
+                industry_subtitle: "Concentramos nuestra experiencia en sectores clave para generar un impacto real:",
+                industry_mining_title: "Minería",
+                industry_mining_desc: "Soluciones para gestión de personal, seguridad y optimización de procesos.",
+                industry_agri_title: "Agricultura",
+                industry_agri_desc: "Plataformas de inversión (AgriTech) y optimización de cultivos con Web3.",
+                industry_retail_title: "Retail",
+                industry_retail_desc: "Gestión de tiendas con IoT y etiquetas de precio electrónicas (ESL).",
+                // Servicios
+                services_title: "Nuestras Soluciones Tecnológicas",
+                services_subtitle: "Desde el desarrollo de aplicaciones a medida hasta la implementación de tecnologías emergentes.",
+                service_ia_title: "IA Aplicada",
+                service_ia_desc: "Desarrollo e implementación de modelos de Inteligencia Artificial para optimizar decisiones y automatizar procesos.",
+                service_web3_title: "Web3 & Smart Contracts",
+                service_web3_desc: "Construimos aplicaciones descentralizadas (dApps) y contratos inteligentes para garantizar transparencia y seguridad.",
+                service_iot_title: "IoT",
+                service_iot_desc: "Conectamos el mundo físico al digital con soluciones de IoT para monitoreo y gestión en tiempo real.",
+                service_mvp_title: "Desarrollo de Apps y MVP",
+                service_mvp_desc: "Especialistas en desarrollo ágil de aplicaciones web y móviles. Convertimos tu idea en un producto funcional.",
+                // Proyectos
+                projects_title: "Proyectos Destacados",
+                projects_subtitle: "Casos de éxito que demuestran nuestra capacidad de aportar valor.",
+                project_mineria_tag: "Minería",
+                project_ia_tag: "IA Aplicada",
+                project_mineria_title: "Miner.IA",
+                project_mineria_desc: "Plataforma de reclutamiento, gestión y acreditación de personal de minería para dar cumplimiento a los requerimientos previos del trabajo en faenas mineras.",
+                project_agri_tag: "Agricultura",
+                project_web3_tag: "Web3",
+                project_agri_title: "CapitalValley",
+                project_agri_desc: "Plataforma de inversiones en agricultura basadas en Smart Contracts que revoluciona la forma de invertir en la producción de alimentos.",
+                project_retail_tag: "Retail",
+                project_iot_tag: "IoT",
+                project_retail_title: "SmartRetail",
+                project_retail_desc: "Servicios de IoT para la gestión de tiendas con el uso de ESL (Electronic Shelf Label), optimizando precios y stock en tiempo real.",
+                // Demo Gemini
+                gemini_title: "Descubre tu Solución Ideal con IA ✨",
+                gemini_subtitle: "Describe tu desafío empresarial y deja que nuestra IA te recomiende la mejor solución tecnológica de STEMLATAM.",
+                gemini_placeholder: "Ej: 'Tengo una cadena de tiendas y pierdo mucho tiempo actualizando precios manualmente. Además, no sé cuándo me quedo sin stock.'",
+                gemini_btn: "Analizar Desafío",
+                gemini_btn_loading: "Analizando...",
+                gemini_result_title: "Recomendación de Nuestra IA:",
+                gemini_error_prefix: "Error: ",
+                // Contacto
+                contact_title: "Hablemos de tu Próximo Desafío",
+                contact_subtitle: "¿Tienes una idea para una startup o un proyecto de transformación digital? Nos encantaría escucharlo.",
+                form_name: "Nombre",
+                form_email: "Email",
+                form_message: "Mensaje",
+                form_message_placeholder: "Cuéntanos más sobre tu proyecto...",
+                form_submit: "Enviar Mensaje",
+                // Footer
+                footer_rights: "&copy; 2025 Stem Group SpA (STEMLATAM). Todos los derechos reservados."
+            },
+            en: {
+                // Page Title
+                page_title: "STEMLATAM - Innovation and Tech Solutions",
+                // Navigation
+                nav_nosotros: "About Us",
+                nav_servicios: "Services",
+                nav_proyectos: "Projects",
+                nav_contacto: "Contact",
+                // Hero
+                hero_title1: "Driving Innovation",
+                hero_title2: "with Tech Solutions",
+                hero_subtitle: "Experts in Applied AI, Web3, IoT, and MVP development for startups in Mining, Agriculture, and Retail.",
+                hero_btn_services: "Our Services",
+                hero_btn_projects: "View Projects",
+                // About Us
+                about_badge: "+10 YEARS OF EXPERIENCE",
+                about_title: "Your Strategic Partner in Digital Transformation",
+                about_p1: "At STEMLATAM (Stem Group SpA), we have spent a decade innovating and creating new custom solutions that add value, agility, and drive the digital transformation of our clients.",
+                about_p2: "We are experts in developing Minimum Viable Products (MVPs) for new Startups, helping them validate their ideas and scale quickly in competitive markets.",
+                industry_title: "Focus Industries",
+                industry_subtitle: "We concentrate our expertise in key sectors to generate real impact:",
+                industry_mining_title: "Mining",
+                industry_mining_desc: "Solutions for personnel management, safety, and process optimization.",
+                industry_agri_title: "Agriculture",
+                industry_agri_desc: "Investment platforms (AgriTech) and crop optimization using Web3.",
+                industry_retail_title: "Retail",
+                industry_retail_desc: "Store management with IoT and Electronic Shelf Labels (ESL).",
+                // Services
+                services_title: "Our Technological Solutions",
+                services_subtitle: "From custom application development to the implementation of emerging technologies.",
+                service_ia_title: "Applied AI",
+                service_ia_desc: "Development and implementation of Artificial Intelligence models to optimize decisions and automate processes.",
+                service_web3_title: "Web3 & Smart Contracts",
+                service_web3_desc: "We build decentralized applications (dApps) and smart contracts to ensure transparency and security.",
+                service_iot_title: "IoT",
+                service_iot_desc: "We connect the physical world to the digital one with IoT solutions for real-time monitoring and management.",
+                service_mvp_title: "App & MVP Development",
+                service_mvp_desc: "Specialists in agile development of web and mobile applications. We turn your idea into a functional product.",
+                // Projects
+                projects_title: "Featured Projects",
+                projects_subtitle: "Success stories that demonstrate our ability to deliver value.",
+                project_mineria_tag: "Mining",
+                project_ia_tag: "Applied AI",
+                project_mineria_title: "Miner.IA",
+                project_mineria_desc: "Platform for recruitment, management, and accreditation of mining personnel to comply with pre-work requirements on mine sites.",
+                project_agri_tag: "Agriculture",
+                project_web3_tag: "Web3",
+                project_agri_title: "CapitalValley",
+                project_agri_desc: "Smart Contract-based investment platform for agriculture that revolutionizes how to invest in food production.",
+                project_retail_tag: "Retail",
+                project_iot_tag: "IoT",
+                project_retail_title: "SmartRetail",
+                project_retail_desc: "IoT services for store management using ESL (Electronic Shelf Label), optimizing prices and stock in real-time.",
+                // Gemini Demo
+                gemini_title: "Discover Your Ideal AI Solution ✨",
+                gemini_subtitle: "Describe your business challenge, and let our AI recommend the best STEMLATAM tech solution for you.",
+                gemini_placeholder: "Ex: 'I own a chain of stores and waste a lot of time manually updating prices. I also lose track of my stock.'",
+                gemini_btn: "Analyze Challenge",
+                gemini_btn_loading: "Analyzing...",
+                gemini_result_title: "Our AI's Recommendation:",
+                gemini_error_prefix: "Error: ",
+                // Contact
+                contact_title: "Let's Talk About Your Next Challenge",
+                contact_subtitle: "Have an idea for a startup or a digital transformation project? We'd love to hear it.",
+                form_name: "Name",
+                form_email: "Email",
+                form_message: "Message",
+                form_message_placeholder: "Tell us more about your project...",
+                form_submit: "Send Message",
+                // Footer
+                footer_rights: "&copy; 2025 Stem Group SpA (STEMLATAM). All rights reserved."
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Lógica del Menú Móvil ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a.mobile-link');
+
+            menuBtn.addEventListener('click', () => {
+                toggleMobileMenu();
+            });
+
+            // Cerrar menú al hacer clic en un enlace
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('hidden');
+                // Cambiar icono
+                if (mobileMenu.classList.contains('hidden')) {
+                    menuBtn.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>';
+                } else {
+                    menuBtn.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                }
+            }
+
+            // --- Lógica de Internacionalización (i18n) ---
+            const langSwitchers = document.querySelectorAll('.lang-switcher');
+            const defaultLang = 'es';
+            let currentLang = defaultLang;
+
+            function changeLanguage(lang) {
+                if (!translations[lang]) return;
+
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                
+                // Actualizar título de la página
+                document.title = translations[lang].page_title;
+
+                // Actualizar botones de idioma
+                langSwitchers.forEach(switcher => {
+                    if (switcher.dataset.lang === lang) {
+                        switcher.classList.add('active');
+                        switcher.classList.remove('inactive');
+                    } else {
+                        switcher.classList.remove('active');
+                        switcher.classList.add('inactive');
+                    }
+                });
+
+                // Actualizar todo el texto con data-key
+                document.querySelectorAll('[data-key]').forEach(element => {
+                    const key = element.dataset.key;
+                    if (translations[lang][key]) {
+                        // Usar innerHTML para elementos que pueden contener spans (como el hero)
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+
+                // Actualizar placeholders
+                document.querySelectorAll('[data-key-placeholder]').forEach(element => {
+                    const key = element.dataset.keyPlaceholder;
+                     if (translations[lang][key]) {
+                        element.placeholder = translations[lang][key];
+                    }
+                });
+
+                // Actualizar idioma del tag <html>
+                document.documentElement.lang = lang;
+            }
+
+            langSwitchers.forEach(switcher => {
+                switcher.addEventListener('click', () => {
+                    changeLanguage(switcher.dataset.lang);
+                });
+            });
+
+            // Cargar idioma guardado o usar default
+            const savedLang = localStorage.getItem('language') || defaultLang;
+            changeLanguage(savedLang);
+
+            // --- Lógica de la API de Gemini ---
+            
+            // --- IMPORTANTE ---
+            // Reemplaza "TU_API_KEY_AQUI" con tu clave de API de Google AI Studio.
+            // ¡NUNCA expongas esta clave en un repositorio público!
+            // Para producción, esta clave debe inyectarse de forma segura o ser manejada a través de un backend.
+            const apiKey = "TU_API_KEY_AQUI"; 
+            // --- FIN IMPORTANTE ---
+
+            const geminiBtn = document.getElementById('gemini-btn');
+            const geminiLoader = document.getElementById('gemini-loader');
+            const challengeInput = document.getElementById('challenge-input');
+            const resultWrapper = document.getElementById('gemini-result-wrapper');
+            const resultText = document.getElementById('gemini-result-text');
+            const errorElement = document.getElementById('gemini-error');
+            const contactMessageInput = document.getElementById('message');
+
+            // Actualización: Usar la URL correcta del modelo (ej. gemini-1.5-flash)
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+
+            geminiBtn.addEventListener('click', async () => {
+                if (apiKey === "TU_API_KEY_AQUI") {
+                    alert("Por favor, reemplaza 'TU_API_KEY_AQUI' en el código HTML con tu clave de API de Google AI Studio para que la demo funcione.");
+                    return;
+                }
+                
+                const userQuery = challengeInput.value;
+                if (!userQuery.trim()) return;
+
+                // Definir el System Prompt en el idioma actual
+                const systemPrompt = currentLang === 'es' ? 
+                    `Eres un consultor de soluciones senior en STEMLATAM. Tu trabajo es analizar el desafío empresarial de un cliente potencial y recomendar de forma concisa (máximo 3 frases) qué tecnologías de STEMLATAM (IA Aplicada, Web3, IoT, Desarrollo MVP) serían las más adecuadas. Sé amable, profesional y directo. No saludes, ve directo a la recomendación.` :
+                    `You are a senior solutions consultant at STEMLATAM. Your job is to analyze a potential client's business challenge and concisely recommend (3 sentences max) which STEMLATAM technologies (Applied AI, Web3, IoT, MVP Development) would be the best fit. Be friendly, professional, and direct. Do not use greetings, get straight to the recommendation.`;
+
+                setLoading(true);
+                resultWrapper.classList.add('hidden');
+                errorElement.classList.add('hidden');
+
+                try {
+                    const recommendation = await callGeminiApi(systemPrompt, userQuery);
+                    
+                    resultText.innerText = recommendation;
+                    resultWrapper.classList.remove('hidden');
+
+                    // Pre-rellenar el formulario de contacto
+                    const formMessageLang = currentLang === 'es' ? 'Hola, describí mi desafío en su demo de IA y esta fue la recomendación que recibí:' : 'Hi, I described my challenge in your AI demo and this was the recommendation I received:';
+                    contactMessageInput.value = `--- MI DESAFÍO ---\n${userQuery}\n\n--- RECOMENDACIÓN IA ---\n${recommendation}\n\n--- ${formMessageLang} --- \n`;
+                    contactMessageInput.style.height = '150px';
+
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    const errorMsg = translations[currentLang].gemini_error_prefix || "Error: ";
+                    errorElement.innerText = errorMsg + error.message;
+                    errorElement.classList.remove('hidden');
+                } finally {
+                    setLoading(false);
+                }
+            });
+
+            async function callGeminiApi(systemPrompt, userQuery, retries = 1, delay = 500) {
+                // Nuevo formato de payload con systemInstruction
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    generationConfig: {
+                        // Opcional: configurar parámetros de generación
+                        // temperature: 0.7,
+                        // maxOutputTokens: 200,
+                    }
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error("Error data from API:", errorData);
+                        // Manejar errores específicos de la API (ej. 429 Too Many Requests)
+                        if (response.status === 429 && retries > 0) {
+                            await new Promise(res => setTimeout(res, delay));
+                            return callGeminiApi(systemPrompt, userQuery, retries - 1, delay * 2);
+                        }
+                        throw new Error(`API Error (${response.status}): ${errorData.error?.message || response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    // Manejo de respuesta exitosa
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        return candidate.content.parts[0].text;
+                    } else if (candidate?.finishReason === "SAFETY") {
+                        // Manejo de bloqueo por seguridad
+                        throw new Error("La solicitud fue bloqueada por políticas de seguridad.");
+                    } else {
+                        // Respuesta inesperada
+                        throw new Error("No se recibió una respuesta válida de la IA.");
+                    }
+
+                } catch (error) {
+                    // Manejo de errores de red o reintentos fallidos
+                    if (retries > 0) { 
+                        await new Promise(res => setTimeout(res, delay));
+                        return callGeminiApi(systemPrompt, userQuery, retries - 1, delay * 2);
+                    }
+                    throw error; // Lanzar el error final si los reintentos fallan
+                }
+            }
+
+
+            function setLoading(isLoading) {
+                const btnTextKey = isLoading ? 'gemini_btn_loading' : 'gemini_btn';
+                const btnText = translations[currentLang][btnTextKey] || (isLoading ? "Analyzing..." : "Analyze Challenge");
+
+                geminiBtn.querySelector('span[data-key="gemini_btn"]').innerText = btnText;
+                
+                if (isLoading) {
+                    geminiLoader.classList.remove('hidden');
+                    geminiBtn.disabled = true;
+                } else {
+                    geminiLoader.classList.add('hidden');
+                    geminiBtn.disabled = false;
+                }
+            }
+
+        });
+    </script>
+
+</body>
+</html>
+```eof

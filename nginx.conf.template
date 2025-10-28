@@ -1,0 +1,29 @@
+# Esta es una plantilla de configuración de Nginx.
+# La variable ${PORT} será reemplazada por el script de inicio del Dockerfile.
+
+server {
+    # Nginx escuchará en el puerto que Cloud Run le asigne.
+    # Cloud Run asigna este puerto dinámicamente a través de la variable $PORT.
+    listen ${PORT};
+
+    # Configuración estándar del servidor
+    server_name _;
+    keepalive_timeout 65;
+
+    # Definimos la raíz de los archivos del sitio web
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html;
+        
+        # Si el archivo no se encuentra, devuelve el index.html
+        # (Útil para Single Page Applications, aunque aquí no es estrictamente necesario, es buena práctica)
+        try_files $uri $uri/ /index.html; 
+    }
+
+    # Optimización de compresión (Opcional pero recomendado)
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/plain text/css application/json application/javascript application/xml;
+}

@@ -1,0 +1,53 @@
+# Este archivo define los pasos que Cloud Build debe ejecutar
+# cuando se activa por un 'push' a GitHub.
+
+steps:
+# --- Paso 1: Construir la imagen de Docker ---
+# Usa el constructor de Docker de Google para ejecutar 'docker build'.
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '-t'
+    # La etiqueta de la imagen: [REGION-docker.pkg.dev]/[PROJECT_ID]/[NOMBRE_REPO_ARTIFACT]/[NOMBRE_IMAGEN]:[TAG]
+    # Usamos el repositorio de Artifact Registry que creamos (ej. 'stemlatam-repo').
+    # $PROJECT_ID es una variable de sustitución que Cloud Build proporciona automáticamente.
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+    # El '.' indica que el Dockerfile está en el directorio actual.
+    - '.'
+
+# --- Paso 2: Publicar (Push) la imagen a Artifact Registry ---
+# Usa el mismo constructor para ejecutar 'docker push'.
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'push'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+
+# --- Paso 3: Desplegar la nueva imagen en Cloud Run ---
+# Usa la herramienta 'gcloud' (SDK de Google Cloud).
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - 'run'
+    - 'deploy'
+    # 'stemlatam-web' es el nombre que tendrá tu servicio en Cloud Run.
+    # Puedes cambiarlo si lo deseas.
+    - 'stemlatam-web'
+    # Especifica la imagen exacta que acabamos de publicar en el Paso 2.
+    - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+    # La región donde se desplegará el servicio. Debe coincidir con la región de Artifact Registry si es posible.
+    - '--region=us-central1'
+    # Plataforma 'managed' (sin servidor, estándar de Cloud Run).
+    - '--platform=managed'
+    # '--allow-unauthenticated' hace que el sitio sea público en Internet.
+    - '--allow-unauthenticated'
+    # Especifica la cuenta de servicio de Runtime (opcional pero recomendado)
+    # - '--service-account=...' 
+
+# Opcional: Define qué imágenes se guardarán en Artifact Registry
+# Esto ayuda a que aparezcan en la UI de Cloud Build.
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+
+# Opciones de logging
+options:
+  logging: CLOUD_LOGGING_ONLY
