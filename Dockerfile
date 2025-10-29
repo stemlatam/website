@@ -10,7 +10,7 @@ COPY nginx.conf.template /etc/nginx/conf.d/default.conf
 
 # EXPONE el puerto 8080, que es el que Cloud Run espera por convención.
 # Cloud Run se encargará de mapear este puerto al exterior.
-EXPOSE 80
+EXPOSE 8080
 
 # El comando de inicio de Nginx.
 CMD ["nginx", "-g", "daemon off;"]

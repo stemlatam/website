@@ -4,7 +4,7 @@
 server {
     # Nginx escuchará en el puerto que Cloud Run le asigne.
     # Cloud Run asigna este puerto dinámicamente a través de la variable $PORT.
-    listen 80;
+    listen ${PORT};
 
     # Configuración estándar del servidor
     server_name _;
