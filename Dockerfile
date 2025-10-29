@@ -2,7 +2,8 @@
 FROM nginx:alpine
 
 # CRÍTICO: Instala gettext (que incluye 'envsubst') para sustituir la variable $PORT.
-RUN apk add --no-cache gettext
+# Mantenemos esta instalación, aunque ya estaba correcta.
+RUN apk update && apk add gettext --no-cache
 
 # Copia tu archivo HTML.
 COPY index.html /usr/share/nginx/html/index.html
@@ -13,6 +14,6 @@ COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
 # EXPONE el puerto 8080, que Cloud Run espera.
 EXPOSE 8080
 
-# CRÍTICO: El comando de inicio usa envsubst para reemplazar ${PORT} en el template 
-# y guarda el resultado en el archivo final de configuración antes de iniciar Nginx.
-CMD ["/bin/sh", "-c", "envsubst '$$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+# CRÍTICO: Usa un script de shell simple para ejecutar envsubst y Nginx.
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["envsubst '$$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
