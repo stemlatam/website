@@ -1,14 +1,16 @@
-# Usa una imagen base de Nginx muy ligera y segura para Cloud Run.
-FROM nginxinc/nginx-unprivileged:alpine-perl
+# Usa una imagen base de Nginx muy ligera.
+FROM nginx:stable-alpine
 
-# CRÍTICO 1: Copia el archivo de la raíz del proyecto local (Website Stem)
-# al directorio donde Nginx busca los archivos web.
+# Copia tu archivo HTML a la ubicación donde Nginx sirve contenido.
+# CRÍTICO: Asegurarse de que index.html esté en la raíz del proyecto local.
 COPY index.html /usr/share/nginx/html/index.html
 
-# CRÍTICO 2: Copia el template de configuración de Nginx al lugar exacto donde
-# la imagen base lo espera para procesar la variable $PORT.
-COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+# Copia el archivo de configuración de Nginx.
+COPY nginx.conf.template /etc/nginx/conf.d/default.conf
 
-# Cloud Run expone el puerto definido por la variable de entorno $PORT.
-# El entrypoint de la imagen base se encarga de aplicar esa variable a la configuración.
-CMD ["/docker-entrypoint.sh", "nginx", "-g", "daemon off;"]
+# EXPONE el puerto 8080, que es el que Cloud Run espera por convención.
+# Cloud Run se encargará de mapear este puerto al exterior.
+EXPOSE 8080
+
+# El comando de inicio de Nginx.
+CMD ["nginx", "-g", "daemon off;"]
