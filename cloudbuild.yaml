@@ -11,7 +11,7 @@ steps:
     # La etiqueta de la imagen: [REGION-docker.pkg.dev]/[PROJECT_ID]/[NOMBRE_REPO_ARTIFACT]/[NOMBRE_IMAGEN]:[TAG]
     # Usamos el repositorio de Artifact Registry que creamos (ej. 'stemlatam-repo').
     # $PROJECT_ID es una variable de sustitución que Cloud Build proporciona automáticamente.
-    - 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repoweb/web-frontend:latest'
     # El '.' indica que el Dockerfile está en el directorio actual.
     - '.'
 
@@ -20,7 +20,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args:
     - 'push'
-    - 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repoweb/web-frontend:latest'
 
 # --- Paso 3: Desplegar la nueva imagen en Cloud Run ---
 # Usa la herramienta 'gcloud' (SDK de Google Cloud).
@@ -33,7 +33,7 @@ steps:
     # Puedes cambiarlo si lo deseas.
     - 'stemlatam-web'
     # Especifica la imagen exacta que acabamos de publicar en el Paso 2.
-    - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+    - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repoweb/web-frontend:latest'
     # La región donde se desplegará el servicio. Debe coincidir con la región de Artifact Registry si es posible.
     - '--region=us-central1'
     # Plataforma 'managed' (sin servidor, estándar de Cloud Run).
@@ -46,7 +46,7 @@ steps:
 # Opcional: Define qué imágenes se guardarán en Artifact Registry
 # Esto ayuda a que aparezcan en la UI de Cloud Build.
 images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repo/web-frontend:latest'
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/stemlatam-repoweb/web-frontend:latest'
 
 # Opciones de logging
 options:
